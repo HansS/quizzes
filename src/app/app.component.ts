@@ -1,5 +1,9 @@
+import { Quiz } from './shared/services/quiz.model';
+import { QuizDataService } from './shared/services/quiz-data.service';
 import { Component } from '@angular/core';
 import {AngularFire,FirebaseListObservable} from 'angularfire2';
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,9 +11,13 @@ import {AngularFire,FirebaseListObservable} from 'angularfire2';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
   title = 'app works!';
-  constructor(private fire: AngularFire){
-    const quizzes$:FirebaseListObservable<any> = fire.database.list('quiz');
-    quizzes$.subscribe(val => console.log(val));
+  quizzes: Quiz[];
+
+  constructor(private service:QuizDataService){
+    this.service.getQuizzes()
+    .do(console.log)
+    .subscribe(quizzes => this.quizzes = quizzes);
   }
 }

@@ -1,3 +1,9 @@
 <h1>
   {{title}}
 </h1>
+<ul>
+  <li *ngFor="let quiz of quizzes">
+   <h2> {{quiz.title}}</h2>
+   <p>{{quiz.description}}</p>
+  </li>
+</ul>
